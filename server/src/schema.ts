@@ -1,26 +1,18 @@
 
 import { z } from 'zod';
 
-// Button click schema
-export const buttonClickSchema = z.object({
+// Minimal schema for potential future use
+export const clickEventSchema = z.object({
   id: z.number(),
-  clicked_at: z.coerce.date(),
-  user_session: z.string().nullable()
+  timestamp: z.coerce.date(),
+  button_label: z.string()
 });
 
-export type ButtonClick = z.infer<typeof buttonClickSchema>;
+export type ClickEvent = z.infer<typeof clickEventSchema>;
 
-// Input schema for recording button clicks
-export const recordClickInputSchema = z.object({
-  user_session: z.string().nullable()
+// Input schema for recording click events (if needed in future)
+export const createClickEventInputSchema = z.object({
+  button_label: z.string()
 });
 
-export type RecordClickInput = z.infer<typeof recordClickInputSchema>;
-
-// Schema for getting click statistics
-export const clickStatsSchema = z.object({
-  total_clicks: z.number(),
-  recent_clicks: z.number()
-});
-
-export type ClickStats = z.infer<typeof clickStatsSchema>;
+export type CreateClickEventInput = z.infer<typeof createClickEventInputSchema>;

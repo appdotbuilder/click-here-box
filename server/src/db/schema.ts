@@ -1,15 +1,16 @@
 
 import { serial, text, pgTable, timestamp } from 'drizzle-orm/pg-core';
 
-export const buttonClicksTable = pgTable('button_clicks', {
+// Minimal table schema for potential future use
+export const clickEventsTable = pgTable('click_events', {
   id: serial('id').primaryKey(),
-  clicked_at: timestamp('clicked_at').defaultNow().notNull(),
-  user_session: text('user_session') // Nullable by default, matches Zod schema
+  button_label: text('button_label').notNull(),
+  timestamp: timestamp('timestamp').defaultNow().notNull(),
 });
 
 // TypeScript type for the table schema
-export type ButtonClick = typeof buttonClicksTable.$inferSelect; // For SELECT operations
-export type NewButtonClick = typeof buttonClicksTable.$inferInsert; // For INSERT operations
+export type ClickEvent = typeof clickEventsTable.$inferSelect;
+export type NewClickEvent = typeof clickEventsTable.$inferInsert;
 
-// Important: Export all tables for proper query building
-export const tables = { buttonClicks: buttonClicksTable };
+// Export all tables for proper query building
+export const tables = { clickEvents: clickEventsTable };

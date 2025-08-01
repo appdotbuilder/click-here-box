@@ -4,7 +4,7 @@ import { createHTTPServer } from '@trpc/server/adapters/standalone';
 import 'dotenv/config';
 import cors from 'cors';
 import superjson from 'superjson';
-import { recordClickInputSchema } from './schema';
+import { createClickEventInputSchema } from './schema';
 import { recordClick } from './handlers/record_click';
 import { getClickStats } from './handlers/get_click_stats';
 
@@ -20,7 +20,7 @@ const appRouter = router({
     return { status: 'ok', timestamp: new Date().toISOString() };
   }),
   recordClick: publicProcedure
-    .input(recordClickInputSchema)
+    .input(createClickEventInputSchema)
     .mutation(({ input }) => recordClick(input)),
   getClickStats: publicProcedure
     .query(() => getClickStats()),
